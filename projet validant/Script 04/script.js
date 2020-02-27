@@ -19,58 +19,38 @@ const entrepreneurs = [
   { first: 'Peter', last: 'Thiel', year: 1967 }
 ];
 
-//Filtre dans cette liste les entrepreneurs qui sont nés dans les années 70
-function ageBetween(entrepreneurs){
-return entrepreneurs.year >=1970 && entrepreneurs.year <1980
+// function pour extraire l'année actuelle
+function yearToday() {
+  let dateNow = new Date();
+  let yearNow = dateNow.getFullYear();
+  return yearNow
 }
 
-var seventies = entrepreneurs.filter(ageBetween);
+// function pour permettre l'ordre dynamique d'un objet avec des arrays
+function dynamicSort(property) {
+    var sortOrder = 1;
 
-//Sors une array qui contient le prénom et le nom des entrepreneurs
-let firstseventies = seventies.map(function(a){
-  return a.first;
-    });
-let lastseventies = seventies.map(function(a){
-      return a.last;
-        });
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
 
-var seventieslength = firstseventies.length;
-var index_first = 0;
-var index_last = 0;
-
-for(var count = 0; count <seventieslength; count++){
-  console.log(`Voici la liste : ${firstseventies[count]} ${lastseventies[count]}`);
+    return function (a,b) {
+        if(sortOrder == -1){
+            return b[property].localeCompare(a[property]);
+        }else{
+            return a[property].localeCompare(b[property]);
+        }
+    }
 }
 
-//Quel âge aurait chaque inventeur aujourd'hui ?
-var today = new Date();
-var yyyy = today.getFullYear();
-console.log(yyyy);
+// variable pour enregistrer l'objet dans l'ordre souhaité
+let entrepreneursList = entrepreneurs.sort(dynamicSort("last"))
+// console.log(entrepreneursList) // Test
 
-let yearofentrepreneurs = entrepreneurs.map(function(a){return a.year;})
-// console.log(yearofentrepreneurs)
-
-let ageofentrepreneurs = yearofentrepreneurs.map(function(a){return yyyy-a})
-//console.log(ageofentrepreneurs)
-
-
-
-
-
-newagearray = entrepreneurs.map(function(a){return
-Object.defineProperty(entrepreneurs, 'age', {
-  value: null,
-  writable: true
-})});
-
-console.log(entrepreneurs.age);
-
-
-
-
-
-
-
-
-
-console.log(entrepreneurs)
+entrepreneursList.forEach(entrepreneur => {
+  if (entrepreneur.year >= 1970 && entrepreneur.year < 1980) {
+    let ageNow = yearToday() - entrepreneur.year;
+    console.log(entrepreneur.first + " " + entrepreneur.last + " " + ageNow);
+  }
+});
