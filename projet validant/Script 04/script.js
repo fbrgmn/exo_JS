@@ -41,3 +41,36 @@ var index_last = 0;
 for(var count = 0; count <seventieslength; count++){
   console.log(`Voici la liste : ${firstseventies[count]} ${lastseventies[count]}`);
 }
+
+//Quel âge aurait chaque inventeur aujourd'hui ?
+var today = new Date();
+var yyyy = today.getFullYear();
+console.log(yyyy);
+
+let yearofentrepreneurs = entrepreneurs.map(function(a){return a.year;})
+// console.log(yearofentrepreneurs)
+
+let ageofentrepreneurs = yearofentrepreneurs.map(function(a){return yyyy-a})
+//console.log(ageofentrepreneurs)
+
+
+
+
+
+newagearray = entrepreneurs.map(function(a){return
+Object.defineProperty(entrepreneurs, 'age', {
+  value: null,
+  writable: true
+})});
+
+console.log(entrepreneurs.age);
+
+
+
+
+
+
+
+
+
+console.log(entrepreneurs)
